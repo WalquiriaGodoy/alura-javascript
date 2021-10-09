@@ -1,7 +1,9 @@
 import {Cliente} from "./Cliente.js"
 export class ContaCorrente {
+    static numeroDeContas = 0
     agencia;
     _cliente;
+    _saldo = 0; //#saldo possível campo privado
 
     set cliente(novoValor){
         if (novoValor instanceof Cliente)
@@ -11,11 +13,17 @@ export class ContaCorrente {
         return this._cliente;
     }
 
-    _saldo = 0; //#saldo possível campo privado
-
+    
     get saldo(){
         return this._saldo;
     }
+
+    constructor(cliente, agencia){
+        this.agencia = agencia;
+        this.cliente = cliente;
+        ContaCorrente.numeroDeContas += 1;
+    }
+
     sacar(valor){
         if(this._saldo >= valor){
             this._saldo -= valor;
